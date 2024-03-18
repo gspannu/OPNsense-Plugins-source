@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# 2023-03-15
+# 2023-03-18
 
 # PROVIDE: blocky
 # REQUIRE: DAEMON NETWORKING
@@ -74,10 +74,28 @@ blocky_status()
 
 #stop_cmd="killall blocky"
 stop_cmd=blocky_stop
+#blocky_stop()
+#{
+#	killall ${name}
+#}
+
 blocky_stop()
 {
-	killall ${name}
+	# wait for process to exit
+	if [ -n "$rc_pid" ]; then
+		echo "Stopping ${name} (through OPNsense os-blocky plugin)."
+		kill $rc_pid
+		echo "Waiting for PIDS: $rc_pid  (through OPNsense os-blocky plugin)."
+		wait_for_pids $rc_pid
+		echo " Stopped ${name} (through OPNsense os-blocky plugin)."
+	else
+		echo "${name} is not running (through OPNsense os-blocky plugin)."
+	fi
 }
+
+
+
+
 
 
 # Create blocky-config from sample, else do not overwrite existing

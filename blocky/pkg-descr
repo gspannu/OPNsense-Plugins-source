@@ -5,6 +5,10 @@ Read more about blocky here: https://github.com/0xERR0R/blocky
 Compiled by Guru Pannu, Copyright (c) 2024
 **********************************************
 
+Revision 9
+* Added code for better Disabling in rc.d/blocky; function introduced in Release 6, implemented now
+* Changed code: courtesy of AdGuardHome plugin, community repo
+
 Revision 8
 * Minor mods, changed repo location, contains Blocky v0.23_2
 
