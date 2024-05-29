@@ -1,8 +1,33 @@
 Blocky DNS plugin for OPNsense
-Github: https://github.com/gspannu/OPNsense-Plugins
+Github: https://github.com/gspannu/OPN-Plugins
 
 Read more about blocky here: https://github.com/0xERR0R/blocky
 Compiled by Guru Pannu, Copyright (c) 2024
+
+**********************************************
+Version 0.24, Revision 3_2
+* Corrected github link, path locations and some text descriptions
+* Contains Blocky v0.24 binary
+* No change in functionality (from 0.24.3)
+
+
+**********************************************
+Version 0.24, Revision 3
+* Upgraded to support OPNsense 24.7 (FreeBSD 14)
+* Contains Blocky v0.24 binary
+* No change in functionality
+
+**********************************************
+
+Version 0.24, Revision 2
+* last upgraded before moving to OPNsense version 24.7
+* No changes, no need to upgrade, reference only
+
+Version 0.24, Revision 1
+* Upgraded to support Blocky v0.24
+* Changed sample blocky yml file to reflect allow/deny, instead of white/blacklist
+* If upgrading from previous version, the existing config.yml file may need updating
+
 **********************************************
 
 Revision 9

@@ -3,12 +3,12 @@
         <id>general.enabled</id>
         <label>Enable</label>
         <type>checkbox</type>
-        <help>Enable or disable Blocky</help>
+        <help>Enable or disable the Blocky DNS resolver.</help>
     </field>
     <field>
         <id>general.primarydns</id>
         <label>Primary DNS</label>
         <type>checkbox</type>
-        <help>Enable if Blocky using port 53, /usr/local/etc/blocky-config.yml</help>
+        <help>Enable if Blocky is the primary DNS resolver (i.e. will run on port 53). Check file /usr/local/etc/blocky/blocky-config.yml </help>
     </field>
 </form>

@@ -1,10 +1,10 @@
-# Created Sample 2024-03-15
+# Created Sample 2024-05-28
 upstream:
   default:
     - 1.1.1.1
     - 8.8.8.8
 blocking:
-  blackLists:
+  denyists:
     ads:
       - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
   clientGroupsBlock:
