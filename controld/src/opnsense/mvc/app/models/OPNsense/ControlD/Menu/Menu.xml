@@ -1,0 +1,7 @@
+<menu>
+  <Services>
+    <ControlD VisibleName="ControlD DNS" cssClass="fa fa-low-vision">
+      <General url="/ui/controld/general/index" order="10"/>
+    </ControlD>
+  </Services>
+</menu>

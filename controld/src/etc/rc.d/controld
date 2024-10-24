@@ -1,0 +1,122 @@
+#!/bin/sh
+
+# 2024-10-24
+
+# PROVIDE: controld
+# REQUIRE: DAEMON NETWORKING
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf[.local] to enable this service
+#
+# controld_enable (bool):	Set to NO by default.
+#			Set it to YES to enable controld.
+# CONTROLD_CONFIG (str):	Set to /usr/local/etc/controld-config.toml by default.
+#			Set it to a path to use that config file.
+# CONTROLD_CONFIG_SAMPLE: Set to /usr/local/etc/controld-config.toml.sample by default
+#			Set it to a path to use sample config file.
+# CONTROLD_USER (str):	Services run as root by default. Set to a user name
+#			to run controld as that user. Note: non-root users
+#			might need permission to bind to ports.
+# CONTROLD_GROUP (str):	Set to the user's primary group by default.
+#			Set it to a group name for daemon file ownership.
+# CONTROLD_FLAGS (str):	Enter extra flags to append to the controld command.
+#!/bin/sh
+
+. /etc/rc.subr
+
+name=controld
+## DO NOT CHANGE THE ABOVE VARIABLE, to be always called name
+
+rcvar=controld_enable
+
+load_rc_config ${name}
+
+: ${controld_enable:=NO}
+: ${CONTROLD_CONFIG:="/usr/local/etc/controld/controld-config.toml"}
+: ${CONTROLD_GROUP:=}
+: ${CONTROLD_FLAGS:="service"}
+: ${CONTROLD_CONFIG_SAMPLE:="/usr/local/etc/controld/controld-config.toml.sample"}
+
+CONTROLD_LOGFILE="/var/log/${name}/${name}.log"
+CONTROLD_PIDFILE="/var/run/${name}.pid"
+CONTROLD_PATH="/usr/local/bin/${name}"
+
+if [ -n "${CONTROLD_USER}" ] && [ -z "${CONTROLD_GROUP}" ]; then
+	# Detect the daemon user's primary group
+	CONTROLD_GROUP=$(id -gn "${CONTROLD_USER}")
+fi
+
+command="/usr/sbin/daemon"
+procname=${CONTROLD_PATH}
+command_args="-c -f -o ${CONTROLD_LOGFILE} -p ${CONTROLD_PIDFILE} ${CONTROLD_PATH} ${CONTROLD_FLAGS} start --config ${CONTROLD_CONFIG}"
+
+start_precmd="controld_precmd"
+# Sets up a CONTROLD_PIDFILE the daemon user can access
+controld_precmd()
+{
+	install -o "${CONTROLD_USER:-root}" -g "${CONTROLD_GROUP:-wheel}" -m 0600 /dev/null "${CONTROLD_PIDFILE}"
+}
+
+
+status_cmd=controld_status
+controld_status()
+{
+	if [ -n "$rc_pid" ]; then
+		echo "${name} is running as pid $rc_pid (through OPNsense os-controld plugin)."
+		return 0
+	else
+		echo "${name} is not running."
+  fi
+}
+
+#stop_cmd="killall controld"
+stop_cmd=controld_stop
+#stop_cmd=controld_stop_asservice
+
+controld_stop()
+{
+	# wait for process to exit
+	if [ -n "$rc_pid" ]; then
+		echo "Stopping ${name} (through OPNsense os-controld plugin)."
+		kill $rc_pid
+		echo "Waiting for PIDS: $rc_pid  (through OPNsense os-controld plugin)."
+		wait_for_pids $rc_pid
+		echo " Stopped ${name} (through OPNsense os-controld plugin)."
+	else
+		echo "${name} is not running (through OPNsense os-controld plugin)."
+	fi
+}
+
+controld_stop_asservice()
+{
+	# wait for process to exit
+	if [ -n "$rc_pid" ]; then
+		echo "Stopping ${name} (through ControlD service)."
+		${CONTROLD_PATH} ${CONTROLD_FLAGS} stop
+		echo "Waiting for PIDS: $rc_pid  (through OPNsense os-controld plugin)."
+		wait_for_pids $rc_pid
+		echo " Stopped ${name} (through ControlD service)."
+	else
+		echo "${name} is not running (through OPNsense os-controld plugin)."
+	fi
+}
+
+
+# Create controld-config from sample, else do not overwrite existing
+if [ -f "${CONTROLD_CONFIG}" ]; then
+  # If controld config file exists, then do not overwrite; do nothing !
+ else
+  # If no controld config file found; assume a new install; copy sample as config file 
+  cp "${CONTROLD_CONFIG_SAMPLE}" "${CONTROLD_CONFIG}";
+fi
+
+# Create controld logfile directory and file
+if [ -f "${CONTROLD_LOGFILE}" ]; then
+  # If controld log file exists, then do not overwrite; do nothing !
+ else
+  # If no controld log file found; assume a new install; create log directory 
+  mkdir -p /var/log/${name}/
+  touch "${CONTROLD_LOGFILE}"
+fi
+
+run_rc_command "$1"

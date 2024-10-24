@@ -1,0 +1,9 @@
+<acl>
+   <page-services-controld>
+      <name>Services: ControlD</name>
+      <patterns>
+         <pattern>ui/controld/*</pattern>
+         <pattern>api/controld/*</pattern>
+      </patterns>
+   </page-services-controld>
+</acl>
