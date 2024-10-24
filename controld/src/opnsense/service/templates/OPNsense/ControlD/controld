@@ -1,5 +1,0 @@
-{% if helpers.exists('OPNsense.controld.general.enabled') and OPNsense.controld.general.enabled == '1' %}
-controld_enable="YES"
-{% else %}
-controld_enable="NO"
-{% endif %}
