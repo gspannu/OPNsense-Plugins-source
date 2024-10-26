@@ -13,9 +13,9 @@ listen :53
 # Default NexDNS profile id
 profile 123abc
 
-# Forwarding rukes if any
+# Forwarding rules if any
+#Do not need any *.lan, *.home rules if discovery-dns is set to use dnsmasq/unbound
 #forwarder *.home=127.0.0.1:53535
-#forwarder *.opnsense=127.0.0.1:53535
 
 # Cache Configuration
 cache-size 4MB
@@ -34,7 +34,7 @@ bogus-priv true
 use-hosts true
 report-client-info true
 discovery-dns
-#discovery-dns <Leave blank for auto dhcp or Unbound/dmsmasq address:port>
+#discovery-dns <Leave blank for auto dhcp or use address:port for Unbound/dmsmasq>
 #discovery-dns 127.0.0.1:53535
 mdns all
 

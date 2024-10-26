@@ -37,7 +37,7 @@ load_rc_config ${name}
 : ${NEXTDNS_FLAGS:="run"}
 : ${NEXTDNS_CONFIG_SAMPLE:="/usr/local/etc/nextdns/nextdns.conf.sample"}
 
-NEXTDNS_LOGFILE="/var/log/${name}/{name}.log"
+NEXTDNS_LOGFILE="/var/log/${name}/${name}.log"
 NEXTDNS_PIDFILE="/var/run/${name}.pid"
 NEXTDNS_PATH="/usr/local/bin/${name}"
 
