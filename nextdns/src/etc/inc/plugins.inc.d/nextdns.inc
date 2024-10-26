@@ -15,7 +15,7 @@ function nextdns_services()
     if (isset($config['OPNsense']['nextdns']['general']['enabled']) && $config['OPNsense']['nextdns']['general']['enabled'] == 1  && $config['OPNsense']['nextdns']['general']['primarydns'] == 1) {
         $services[] = array(
             'dns_ports' => ['53'],
-            'description' => gettext('ControlD DNS'),
+            'description' => gettext('NextDNS DNS'),
             'configd' => array(
                 'restart' => array('nextdns restart'),
                 'start' => array('nextdns start'),
@@ -27,7 +27,7 @@ function nextdns_services()
     }
     elseif (isset($config['OPNsense']['nextdns']['general']['enabled']) && $config['OPNsense']['nextdns']['general']['enabled'] == 1  && $config['OPNsense']['nextdns']['general']['primarydns'] == 0) {
         $services[] = array(
-            'description' => gettext('ControlD DNS'),
+            'description' => gettext('NextDNS DNS'),
             'configd' => array(
                 'restart' => array('nextdns restart'),
                 'start' => array('nextdns start'),
