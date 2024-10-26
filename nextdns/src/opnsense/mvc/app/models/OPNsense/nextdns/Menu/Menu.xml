@@ -1,6 +1,6 @@
 <menu>
   <Services>
-    <NextDNS VisibleName="DNS NextDNS" cssClass="fa fa-mixcloud">
+    <NextDNS VisibleName="NextDNS DNS" cssClass="fa fa-eye-slash">
       <General url="/ui/nextdns/general/index" order="10"/>
 		</NextDNS>
   </Services>
