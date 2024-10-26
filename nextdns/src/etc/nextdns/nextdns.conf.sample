@@ -2,10 +2,12 @@
 listen :53
 #listen 192.168.1.1:53
 #listen 127.0.0.1:53
+#listen 192.168.10.200:56465
 
 # Change profiles as needed for various client configurations
 #profile 192.168.10.0/24=abc123
 #profile 192.168.60.0/24=def456
+#profile 192.168.1.200/32=ghj397
 #profile abcdef
 
 # Default NexDNS profile id
@@ -17,8 +19,8 @@ profile 123abc
 
 # Cache Configuration
 cache-size 4MB
-#cache-max-age 10s
-#max-ttl 10s
+#cache-max-age 3600s
+#max-ttl 30s
 #timeout 5s
 
 # Setup Configurations
@@ -32,6 +34,8 @@ bogus-priv true
 use-hosts true
 report-client-info true
 discovery-dns
+#discovery-dns <Leave blank for auto dhcp or Unbound/dmsmasq address:port>
+#discovery-dns 127.0.0.1:53535
 mdns all
 
 hardened-privacy false
