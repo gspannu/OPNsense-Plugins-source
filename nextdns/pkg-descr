@@ -8,18 +8,19 @@ Compiled by Guru Pannu, Copyright (c) 2024
 **********************************************
 
 #Version 1.43, Revision 9
-#* First Build Build
+#* First Build
 
 **********************************************
 
 #Version 1.43, Revision 9_0
-* Initial Test Build
-
-
+* Initial Test Build - only for testing
 
 -----------------------------------------------------------------------------
 # NextDNS CLI Client
 
-NextDNS CLI is a command-line tool that allows you to use [NextDNS](https://nextdns.io)'s DNS-over-HTTPS (DoH) service with advanced capabilities. Although the most advanced features will only work with NextDNS, this program can work as a client for any DoH provider or a mix of NextDNS + another DNS (split horizon).
+NextDNS CLI is a command-line tool that allows you to use [NextDNS](https://nextdns.io)'s 
+DNS-over-HTTPS (DoH) service with advanced capabilities. 
+Although the most advanced features will only work with NextDNS, this program can work as a 
+client for any DoH provider or a mix of NextDNS + another DNS (split horizon).
 
 See the [wiki](https://github.com/nextdns/nextdns/wiki) for installation and usage instructions.
