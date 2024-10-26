@@ -1,0 +1,42 @@
+# Listen Port configuration
+listen :53
+#listen 192.168.1.1:53
+#listen 127.0.0.1:53
+
+# Change profiles as needed for various client configurations
+#profile 192.168.10.0/24=abc123
+#profile 192.168.60.0/24=def456
+#profile abcdef
+
+# Default NexDNS profile id
+profile 123abc
+
+# Forwarding rukes if any
+#forwarder *.home=127.0.0.1:53535
+#forwarder *.opnsense=127.0.0.1:53535
+
+# Cache Configuration
+cache-size 4MB
+#cache-max-age 10s
+#max-ttl 10s
+#timeout 5s
+
+# Setup Configurations
+setup-router false
+auto-activate false
+detect-captive-portals false
+timeout 5s
+
+# Client information config
+bogus-priv true
+use-hosts true
+report-client-info true
+discovery-dns
+mdns all
+
+hardened-privacy false
+max-inflight-requests 256
+
+# Logging configuraion
+log-queries false
+debug false
