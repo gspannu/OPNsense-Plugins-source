@@ -6,9 +6,9 @@ Compiled by Guru Pannu, Copyright (c) 2024
 
 **********************************************
 
-#Version 1.0, Revision 0
+#Version 1.0, Revision 1
 * First build
 * Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/etc/AdGuardHome/AdGuardHome.yaml as required
+* Please configure /usr/local/etc/adguardhome/adguardhome.yaml as required
 
 **********************************************
