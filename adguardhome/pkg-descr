@@ -11,47 +11,9 @@ Please ensure to disable Unbound/dnsmasq or run on another port than :53
 
 **********************************************
 
-#Version 1.0, Revision 6
-* AGH dir rights fixed. 0700 instead of 0755
+#Version 1.1
+* First release build
 * Contains AdGuardHome Beta v0.108.0-b.59
 * Please configure /usr/local/AdGuardHome/AdGuardhome.yaml as required
-
-**********************************************
-
-#Version 1.0, Revision 5
-* AGH working dir changed to /usr/local/AdGuardHome
-* AGH config file chnaged to /usr/local/AdGuardHome/AdGuardHome.yaml
-* Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/AdGuardHome/AdGuardhome.yaml as required
-
-**********************************************
-
-#Version 1.0, Revision 4
-* Build updated, removed sample yaml file
-* AGH working dir now changed to /usr/local/adguardhome
-* AGH config file chnaged to /usr/local/adguardhome/AdGuardHome.yaml
-* Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/adguardhome/AdGuardhome.yaml as required
-
-**********************************************
-
-#Version 1.0, Revision 3
-* Build updated to not include sample yaml file, AGH working dir now changed to /usr/local/bin/adguardhome
-* Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/etc/adguardhome/adguardhome.yaml as required
-
-**********************************************
-
-#Version 1.0, Revision 2
-* Build updated for sample yaml file
-* Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/etc/adguardhome/adguardhome.yaml as required
-
-**********************************************
-
-#Version 1.0, Revision 1
-* First build
-* Contains AdGuardHome Beta v0.108.0-b.59
-* Please configure /usr/local/etc/adguardhome/adguardhome.yaml as required
-
+* Clean install - AGH web browser available on http://OPNsenseIPAddress:3000/
 **********************************************

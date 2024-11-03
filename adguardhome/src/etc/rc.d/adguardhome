@@ -40,6 +40,7 @@ load_rc_config ${name}
 ADGUARDHOME_LOGFILE="/var/log/${name}/${name}.log"
 ADGUARDHOME_PIDFILE="/var/run/${name}.pid"
 ADGUARDHOME_PATH="/usr/local/AdGuardHome/AdGuardHome"
+ADGUARDHOME_DIR="/usr/local/AdGuardHome/"
 
 #if [ -n "${ADGUARDHOME_USER}" ] && [ -z "${ADGUARDHOME_GROUP}" ]; then
 #	# Detect the daemon user's primary group
@@ -95,6 +96,13 @@ if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
   # If no adguardhome log file found; assume a new install; create log directory
   mkdir -p /var/log/${name}/
   touch "${ADGUARDHOME_LOGFILE}"
+fi
+
+# Check AdGuardhome directory permissions
+if [ -f "${ADGUARDHOME_DIR}" ]; then
+  chmod 0700 ${ADGUARDHOME_DIR}
+ else
+  # Do nothing
 fi
 
 run_rc_command "$1"
