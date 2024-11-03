@@ -40,7 +40,8 @@ load_rc_config ${name}
 
 ADGUARDHOME_LOGFILE="/var/log/${name}/${name}.log"
 ADGUARDHOME_PIDFILE="/var/run/${name}.pid"
-ADGUARDHOME_PATH="/usr/local/bin/AdGuardHome"
+ADGUARDHOME_PATH="/usr/local/bin/${name}/AdGuardHome"
+ADGUARDHOME_WORKDIR='/usr/local/bin/${name}'
 
 #if [ -n "${ADGUARDHOME_USER}" ] && [ -z "${ADGUARDHOME_GROUP}" ]; then
 #	# Detect the daemon user's primary group
@@ -51,7 +52,7 @@ command="/usr/sbin/daemon"
 #procname=${ADGUARDHOME_PATH}
 #command_args="-c -f -p ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -c ${ADGUARDHOME_CONFIG} -s run &"
 
-command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} ${ADGUARDHOME_FLAGS} -c ${ADGUARDHOME_CONFIG} &"
+command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} ${ADGUARDHOME_FLAGS} -c ${ADGUARDHOME_CONFIG} -w ${ADGUARDHOME_WORKDIR} &"
 
 #/usr/sbin/daemon -f -o /var/log/adguardhome/adguardhome.log -p /var/run/adguardhome.pid /temp/usr/local/AdGuardHome/AdGuardHome -s run -c /usr/local/etc/adguardhome/adguardhome.yaml &
 
@@ -91,20 +92,20 @@ adguardhome_stop()
 
 
 # Create adguardhome-config from sample, else do not overwrite existing
-if [ -f "${ADGUARDHOME_CONFIG}" ]; then
+#if [ -f "${ADGUARDHOME_CONFIG}" ]; then
   # If adguardhome config file exists, then do not overwrite; do nothing !
- else
+# else
   # If no adguardhome config file found; assume a new install; copy sample as config file
-  cp "${ADGUARDHOME_CONFIG_SAMPLE}" "${ADGUARDHOME_CONFIG}";
-fi
+#  cp "${ADGUARDHOME_CONFIG_SAMPLE}" "${ADGUARDHOME_CONFIG}";
+#fi
 
 # Create adguardhome logfile directory and file
-if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
+#if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
   # If adguardhome log file exists, then do not overwrite; do nothing !
- else
+# else
   # If no adguardhome log file found; assume a new install; create log directory
-  mkdir -p /var/log/${name}/
-  touch "${ADGUARDHOME_LOGFILE}"
-fi
+#  mkdir -p /var/log/${name}/
+#  touch "${ADGUARDHOME_LOGFILE}"
+#fi
 
 run_rc_command "$1"

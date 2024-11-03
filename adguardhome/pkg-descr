@@ -8,6 +8,13 @@ The AGH web browser should be available on http://OPNsenseAddress:3000/ after a 
 
 **********************************************
 
+#Version 1.0, Revision 3
+* Build updated to not include sample yaml file, AGH working dir now changed to /usr/local/bin/adguardhome
+* Contains AdGuardHome Beta v0.108.0-b.59
+* Please configure /usr/local/etc/adguardhome/adguardhome.yaml as required
+
+**********************************************
+
 #Version 1.0, Revision 2
 * Build updated for sample yaml file
 * Contains AdGuardHome Beta v0.108.0-b.59
