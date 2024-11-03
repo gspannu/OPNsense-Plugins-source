@@ -1,0 +1,449 @@
+http:
+  pprof:
+    port: 6060
+    enabled: true
+  address: 0.0.0.0:14711
+  session_ttl: 720h
+users:
+  - name: adblocker
+    password: $2a$10$51cgVddAdeRH4Rpkm7nDsO8Oc2ozflB8u2SuVGnjJ4kjygr2bpd.K
+auth_attempts: 5
+block_auth_min: 15
+http_proxy: ""
+language: ""
+theme: auto
+dns:
+  bind_hosts:
+    - 0.0.0.0
+  port: 53
+  anonymize_client_ip: false
+  ratelimit: 0
+  ratelimit_subnet_len_ipv4: 24
+  ratelimit_subnet_len_ipv6: 56
+  ratelimit_whitelist: []
+  refuse_any: true
+  upstream_dns:
+    - '[//][::]:53535'
+    - '[/home/][::]:53535'
+    - '[/OPNsense/][::]:53535'
+    - '[/use-application-dns.net/][::]:53535'
+    - '[/dns.resolver.arpa/][::]:53535'
+    - '[/in-addr.arpa/][::]:53535'
+    - '#tls://dns-home.adblock.noha.gurupannu.com'
+    - '#https://adblock.noha.gurupannu.com/dns-query/dns-home'
+    - '#tls://dns64.dns.google'
+    - tls://dns.google
+    - tls://one.one.one.one
+    - tls://p0.freedns.controld.com
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - quic://unfiltered.adguard-dns.com
+    - '#If Using Unbound, then enable below line, not for dnsmasq'
+    - '#Parallel requests, Unbound likely used for next query'
+    - '[::]:53535'
+  upstream_dns_file: ""
+  bootstrap_dns:
+    - 9.9.9.10
+    - 149.112.112.10
+    - 2620:fe::10
+    - 2620:fe::fe:10
+  fallback_dns:
+    - 1.1.1.1
+    - 8.8.8.8
+  upstream_mode: parallel
+  fastest_timeout: 1s
+  allowed_clients:
+    - 127.0.0.1
+    - ::1
+    - 192.168.0.0/16
+    - 10.0.0.0/8
+    - dns-client
+  disallowed_clients: []
+  blocked_hosts:
+    - version.bind
+    - id.server
+    - hostname.bind
+  trusted_proxies:
+    - 127.0.0.0/8
+    - ::1/128
+  cache_size: 4194304
+  cache_ttl_min: 30
+  cache_ttl_max: 3600
+  cache_optimistic: true
+  bogus_nxdomain: []
+  aaaa_disabled: false
+  enable_dnssec: true
+  edns_client_subnet:
+    custom_ip: 100.100.100.100
+    enabled: false
+    use_custom: false
+  max_goroutines: 300
+  handle_ddr: true
+  ipset: []
+  ipset_file: ""
+  bootstrap_prefer_ipv6: false
+  upstream_timeout: 10s
+  private_networks: []
+  use_private_ptr_resolvers: true
+  local_ptr_upstreams:
+    - '[::]:53535'
+    - '[/in-addr.arpa/][::]:53535'
+  use_dns64: false
+  dns64_prefixes: []
+  serve_http3: true
+  use_http3_upstreams: true
+  serve_plain_dns: true
+  hostsfile_enabled: true
+tls:
+  enabled: true
+  server_name: adblock.home.gurupannu.com
+  force_https: false
+  port_https: 35443
+  port_dns_over_tls: 853
+  port_dns_over_quic: 853
+  port_dnscrypt: 0
+  dnscrypt_config_file: ""
+  allow_unencrypted_doh: false
+  certificate_chain: ""
+  private_key: ""
+  certificate_path: /var/etc/cert.pem
+  private_key_path: /var/etc/key.pem
+  strict_sni_check: false
+querylog:
+  dir_path: ""
+  ignored: []
+  interval: 1h
+  size_memory: 1000
+  enabled: true
+  file_enabled: true
+statistics:
+  dir_path: ""
+  ignored:
+    - '||in-addr.arpa'
+    - '||_dns-sd._udp.home'
+  interval: 2160h
+  enabled: true
+filters:
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+    name: AdGuard DNS filter
+    id: 1
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
+    name: AdAway Default Blocklist
+    id: 2
+  - enabled: false
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_27.txt
+    name: OISD Blocklist Big
+    id: 1707600171
+  - enabled: false
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_33.txt
+    name: Steven Black's List
+    id: 1707600172
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_51.txt
+    name: HaGeZi's Pro++ Blocklist
+    id: 1729866422
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_59.txt
+    name: AdGuard DNS Popup Hosts filter
+    id: 1729866423
+whitelist_filters: []
+user_rules:
+  - '# ------ Block ._dns-sd._udp ------#'
+  - '#/^.*p\.(([0-9]{1,3}\.){4})in-addr\.arpa$/'
+  - '#/^.*p\.(([0-9]{1,3}\.){4})in-addr\.arpa/$dnsrewrite=NXDOMAIN'
+  - '#||_dns-sd._udp.home^$dnsrewrite=NXDOMAIN'
+  - '#/^(.+[_.-])?lb._dns-sd*[_.-]/'
+  - '# ------------ REWRITES ----------------#'
+  - '#router.asus.com^$dnsrewrite=192.168.1.250'
+  - '#asus.home^$dnsrewrite=192.168.1.250'
+  - vault.home^$dnsrewrite=192.168.1.1
+  - secureerp.udp.sml.com^$dnsrewrite=172.16.22.236
+  - uksoudata.sml.com^$dnsrewrite=10.21.10.203
+  - '# ------------ WHITELIST ---------------- #'
+  - '@@||auth.split.io^'
+  - '@@||mobile.launchdarkly.com^'
+  - '@@||googletagmanager.com^'
+  - '@@||aax-eu.amazon.co.uk^'
+  - '@@||bmedia-gcore.justservingfiles.net^'
+  - '# @@||apple.com^'
+  - '# @@||icloud.com^'
+  - '# @@||metrics.icloud.com^'
+  - '# @@||metrics.apple.com^'
+  - '# @@||eurotunnel.com^'
+  - '# @@||bp1.ad.bp.com^'
+  - '# @@||eu.docusign.net^'
+  - '# @@||www.diyphotography.net^'
+  - '# @@||mail-ads.google.com^'
+  - '# ------------ BLACKLIST ---------------- #'
+  - '||browser.sentry-cdn.com^'
+  - '# --------- REGEX --------- #'
+  - /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
+  - /^(.+[_.-])?telemetry[_.-]/
+  - /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
+  - /^adim(age|g)s?[0-9]*[_.-]/
+  - /^adtrack(er|ing)?[0-9]*[_.-]/
+  - /^advert(s|is(ing|ements?))?[0-9]*[_.-]/
+  - /^aff(iliat(es?|ion))?[_.-]/
+  - /^analytics?[_.-]/
+  - /^banners?[_.-]/
+  - /^beacons?[0-9]*[_.-]/
+  - /^count(ers?)?[0-9]*[_.-]/
+  - /^mads\./
+  - /^pixels?[-.]/
+  - /^stat(s|istics)?[0-9]*[_.-]/
+  - '# ------ README ------ #'
+  - '# Sample entry @@||example.net^ - Unblocks example.net and all its sub-domains'
+  - '# Sample entry ||example.org^.  - Blocks example.org and all its sub-domains'
+  - '# Sample entry example.com^$dnsrewrite=1.2.3.4. - Rewrite example.com with 1.2.3.4'
+  - '# ||example.com^$dnsrewrite=NXDOMAIN;;          - Responds with an NXDOMAIN code.'
+  - '# Block numerous lb._dns-sd._udp queries'
+  - '#https://www.reddit.com/r/pihole/comments/i9s0jx/how_to_deal_with_lb_dnssd_udp01168192inaddrarpa/?sort=old'
+  - ""
+dhcp:
+  enabled: false
+  interface_name: ""
+  local_domain_name: home
+  dhcpv4:
+    gateway_ip: ""
+    subnet_mask: ""
+    range_start: ""
+    range_end: ""
+    lease_duration: 86400
+    icmp_timeout_msec: 1000
+    options: []
+  dhcpv6:
+    range_start: ""
+    lease_duration: 86400
+    ra_slaac_only: false
+    ra_allow_slaac: false
+filtering:
+  blocking_ipv4: ""
+  blocking_ipv6: ""
+  blocked_services:
+    schedule:
+      time_zone: Local
+    ids: []
+  protection_disabled_until: null
+  safe_search:
+    enabled: false
+    bing: true
+    duckduckgo: true
+    ecosia: true
+    google: true
+    pixabay: true
+    yandex: true
+    youtube: true
+  blocking_mode: default
+  parental_block_host: family-block.dns.adguard.com
+  safebrowsing_block_host: standard-block.dns.adguard.com
+  rewrites: []
+  safe_fs_patterns:
+    - /usr/local/AdGuardHome/data/userfilters/*
+  safebrowsing_cache_size: 1048576
+  safesearch_cache_size: 1048576
+  parental_cache_size: 1048576
+  cache_time: 30
+  filters_update_interval: 24
+  blocked_response_ttl: 10
+  filtering_enabled: true
+  parental_enabled: false
+  safebrowsing_enabled: true
+  protection_enabled: true
+clients:
+  runtime_sources:
+    whois: true
+    arp: true
+    rdns: true
+    dhcp: true
+    hosts: true
+  persistent:
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: '!Guests'
+      ids:
+        - 192.168.10.0/24
+      tags: []
+      upstreams: []
+      uid: 018d94fd-00a1-7bb3-bf5d-42ebefdb5316
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: false
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: false
+      ignore_querylog: false
+      ignore_statistics: false
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: OPNsense
+      ids:
+        - 127.0.0.1
+        - ::1
+        - 192.168.1.1/32
+        - 192.168.10.1/32
+        - 192.168.60.1/32
+      tags: []
+      upstreams: []
+      uid: 018d951f-472e-768b-a1af-56d4d902172c
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: false
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: false
+      ignore_querylog: false
+      ignore_statistics: false
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: SKY-PUCK
+      ids:
+        - 192.168.60.154/32
+        - 192.168.60.155/32
+      tags: []
+      upstreams: []
+      uid: 018f2c3a-e526-785a-9edd-810373a83d8e
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: false
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: false
+      ignore_querylog: false
+      ignore_statistics: false
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: SKY-STREAM
+      ids:
+        - 192.168.60.152/32
+        - 192.168.60.153/32
+      tags: []
+      upstreams: []
+      uid: 018f2c3b-9a0e-7cb0-8d56-7b912d593acc
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: false
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: false
+      ignore_querylog: false
+      ignore_statistics: false
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: VPN Clients
+      ids:
+        - 10.10.10.0/24
+      tags: []
+      upstreams: []
+      uid: 018d94fd-7ce9-716b-b231-85582ec5d95d
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: true
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: true
+      ignore_querylog: false
+      ignore_statistics: false
+    - safe_search:
+        enabled: false
+        bing: true
+        duckduckgo: true
+        ecosia: false
+        google: true
+        pixabay: true
+        yandex: true
+        youtube: true
+      blocked_services:
+        schedule:
+          time_zone: Local
+        ids: []
+      name: WIN-DG
+      ids:
+        - 192.168.10.180
+      tags: []
+      upstreams: []
+      uid: 018d94fc-6d8e-733d-a933-a6aeb649e3c7
+      upstreams_cache_size: 0
+      upstreams_cache_enabled: false
+      use_global_settings: false
+      filtering_enabled: false
+      parental_enabled: false
+      safebrowsing_enabled: false
+      use_global_blocked_services: false
+      ignore_querylog: false
+      ignore_statistics: false
+log:
+  enabled: true
+  file: ""
+  max_backups: 1
+  max_size: 1
+  max_age: 1
+  compress: false
+  local_time: true
+  verbose: false
+os:
+  group: ""
+  user: ""
+  rlimit_nofile: 0
+schema_version: 29

@@ -1,0 +1,14 @@
+AdGuardHome DNS plugin for OPNsense
+Github: https://github.com/gspannu/OPN-Plugins
+
+Read more about AdGuardHome here: https://github.com/AdguardTeam/AdGuardHome
+Compiled by Guru Pannu, Copyright (c) 2024
+
+**********************************************
+
+#Version 1.0, Revision 0
+* First build
+* Contains AdGuardHome Beta v0.108.0-b.59
+* Please configure /usr/local/etc/AdGuardHome/AdGuardHome.yaml as required
+
+**********************************************
