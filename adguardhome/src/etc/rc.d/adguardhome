@@ -39,7 +39,7 @@ load_rc_config ${name}
 
 ADGUARDHOME_LOGFILE="/var/log/${name}/${name}.log"
 ADGUARDHOME_PIDFILE="/var/run/${name}.pid"
-ADGUARDHOME_PATH="/usr/local/${name}/AdGuardHome"
+ADGUARDHOME_PATH="/usr/local/AdGuardHome/AdGuardHome"
 
 #if [ -n "${ADGUARDHOME_USER}" ] && [ -z "${ADGUARDHOME_GROUP}" ]; then
 #	# Detect the daemon user's primary group
@@ -49,7 +49,7 @@ ADGUARDHOME_PATH="/usr/local/${name}/AdGuardHome"
 command="/usr/sbin/daemon"
 #command_args="-c -f -p ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -c ${ADGUARDHOME_CONFIG} -s run &"
 
-command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} ${ADGUARDHOME_FLAGS} &"
+command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -s run &"
 
 #/usr/sbin/daemon -f -o /var/log/adguardhome/adguardhome.log -p /var/run/adguardhome.pid /temp/usr/local/AdGuardHome/AdGuardHome -s run -c /usr/local/etc/adguardhome/adguardhome.yaml &
 
@@ -86,5 +86,16 @@ adguardhome_stop()
 		echo "${name} is not running (through OPNsense os-adguardhome plugin)."
 	fi
 }
+
+
+# Create adguardhome logfile directory and file
+if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
+  # If adguardhome log file exists, then do not overwrite; do nothing !
+ else
+  # If no adguardhome log file found; assume a new install; create log directory
+  mkdir -p /var/log/${name}/
+  touch "${ADGUARDHOME_LOGFILE}"
+fi
+
 
 run_rc_command "$1"
