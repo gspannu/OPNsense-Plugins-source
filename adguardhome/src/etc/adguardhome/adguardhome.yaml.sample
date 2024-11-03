@@ -106,8 +106,8 @@ tls:
   allow_unencrypted_doh: false
   certificate_chain: ""
   private_key: ""
-  certificate_path: /var/etc/cert.pem
-  private_key_path: /var/etc/key.pem
+  certificate_path: /usr/local/etc/lighttpd_webgui/cert.pem
+  private_key_path: /usr/local/etc/lighttpd_webgui/key.pem
   strict_sni_check: false
 querylog:
   dir_path: ""
@@ -132,14 +132,6 @@ filters:
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
     name: AdAway Default Blocklist
     id: 2
-  - enabled: false
-    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_27.txt
-    name: OISD Blocklist Big
-    id: 1707600171
-  - enabled: false
-    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_33.txt
-    name: Steven Black's List
-    id: 1707600172
   - enabled: true
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_51.txt
     name: HaGeZi's Pro++ Blocklist
