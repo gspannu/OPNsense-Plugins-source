@@ -9,6 +9,6 @@
         <id>general.primarydns</id>
         <label>Run as Primary DNS</label>
         <type>checkbox</type>
-        <help>Enable if AdGuardHome is the primary DNS resolver (i.e. will run on port 53). Check file /usr/local/adguardhome/AdGuardHome.yaml. Ensure that no other application (Unbound, dnsmasq, AdGuardHome) is not running on port 53. </help>
+        <help>Enable if AGH is the primary DNS resolver (i.e. will run on port 53). Check file AdGuardHome.yaml in /usr/local/Adguardhome/ directory. Ensure that no other resolver (Unbound, dnsmasq, etc.) is also running on the same port 53. Check /var/log/adguardhome for logs.</help>
     </field>
 </form>

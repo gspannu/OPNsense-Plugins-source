@@ -11,6 +11,13 @@ Please ensure to disable Unbound/dnsmasq or run on another port than :53
 
 **********************************************
 
+#Version 1.0, Revision 6
+* AGH dir rights fixed. 0700 instead of 0755
+* Contains AdGuardHome Beta v0.108.0-b.59
+* Please configure /usr/local/AdGuardHome/AdGuardhome.yaml as required
+
+**********************************************
+
 #Version 1.0, Revision 5
 * AGH working dir changed to /usr/local/AdGuardHome
 * AGH config file chnaged to /usr/local/AdGuardHome/AdGuardHome.yaml

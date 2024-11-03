@@ -97,5 +97,4 @@ if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
   touch "${ADGUARDHOME_LOGFILE}"
 fi
 
-
 run_rc_command "$1"
