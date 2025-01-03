@@ -1,0 +1,11 @@
+{
+    "product_abi": "24.7",
+    "product_arch": "amd64",
+    "product_email": "michael.muenz@max-it.de",
+    "product_flavour": "OpenSSL",
+    "product_hash": "1f241b45d",
+    "product_id": "os-adguardhome-maxit",
+    "product_name": "adguardhome-maxit",
+    "product_version": "1.14",
+    "product_website": "https://opnsense.org/"
+}

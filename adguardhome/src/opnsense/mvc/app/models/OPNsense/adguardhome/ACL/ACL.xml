@@ -1,9 +1,0 @@
-<acl>
-   <page-services-adguardhome>
-      <name>Services: adguardhome</name>
-      <patterns>
-         <pattern>ui/adguardhome/*</pattern>
-         <pattern>api/adguardhome/*</pattern>
-      </patterns>
-   </page-services-adguardhome>
-</acl>

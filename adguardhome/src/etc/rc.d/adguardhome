@@ -1,93 +1,47 @@
 #!/bin/sh
-
-# 2024-11-03
-
-# PROVIDE: adguardhome
-# REQUIRE: DAEMON NETWORKING
+#
+# $FreeBSD$
+#
 # KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf[.local] to enable this service
-#
-# adguardhome_enable (bool):	Set to NO by default.
-#			Set it to YES to enable adguardhome.
-# ADGUARDHOME_CONFIG (str):	Set to /usr/local/etc/adguardhome/adguardhome.yaml by default.
-#			Set it to a path to use that config file.
-# ADGUARDHOME_CONFIG_SAMPLE: Set to /usr/local/etc/adguardhome/adguardhome.yaml.sample by default
-#			Set it to a path to use sample config file.
-# ADGUARDHOME_USER (str):	Services run as root by default. Set to a user name
-#			to run adguardhome as that user. Note: non-root users
-#			might need permission to bind to ports.
-# ADGUARDHOME_GROUP (str):	Set to the user's primary group by default.
-#			Set it to a group name for daemon file ownership.
-# ADGUARDHOME_FLAGS (str):	Enter extra flags to append to the adguardhome command.
-#!/bin/sh
 
 . /etc/rc.subr
-
 name="adguardhome"
-## DO NOT CHANGE THE ABOVE VARIABLE, to be always called name
-
-: ${adguardhome_enable:=NO}
-: ${ADGUARDHOME_CONFIG:="/usr/local/etc/${name}/adguardhome.yaml"}
-: ${ADGUARDHOME_GROUP:=}
-: ${ADGUARDHOME_FLAGS:="-s run"}
-: ${ADGUARDHOME_CONFIG_SAMPLE:="/usr/local/etc/${name}/adguardhome.yaml.sample"}
 
 rcvar=adguardhome_enable
-
-ADGUARDHOME_LOGFILE="/var/log/${name}/${name}.log"
-ADGUARDHOME_PIDFILE="/var/run/${name}.pid"
-ADGUARDHOME_PATH="/usr/local/AdGuardHome/AdGuardHome"
-ADGUARDHOME_DIR="/usr/local/AdGuardHome/"
-
-command="/usr/sbin/daemon"
-#command_args="-c -f -p ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -c ${ADGUARDHOME_CONFIG} -s run &"
-command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -s run &"
-
-
-load_rc_config ${name}
-
-status_cmd=adguardhome_status
-adguardhome_status()
-{
-	if [ -n "$rc_pid" ]; then
-		echo "${name} is running as pid $rc_pid (through OPNsense os-adguardhome plugin)."
-		return 0
-	else
-		echo "${name} is not running."
-  fi
-}
+pidfile=/var/run/${name}.pid
+command=/usr/sbin/daemon
+command_args="-f -P /var/run/adguardhome.pid /usr/local/AdGuardHome/AdGuardHome -s run &"
 
 stop_cmd=adguardhome_stop
+status_cmd=adguardhome_status
+
+load_rc_config adguardhome
+
+: ${adguardhome_enable="NO"}
+
+
+adguardhome_status()
+{
+         if [ -n "$rc_pid" ]; then
+             echo "${name} is running as pid $rc_pid (through OPNsense os-adguardhome plugin)."
+             return 0
+         else
+             echo "${name} is not running (through OPNsense os-adguardhome plugin)."
+         fi
+}
+
 adguardhome_stop()
 {
 	# wait for process to exit
 	if [ -n "$rc_pid" ]; then
 		echo "Stopping ${name} (through OPNsense os-adguardhome plugin)."
 		kill $rc_pid
-		echo "Waiting for PIDS: $rc_pid  (through OPNsense os-adguardhome plugin)."
+		echo "Waiting for PIDS: $rc_pid (through OPNsense os-adguardhome plugin)."
 		wait_for_pids $rc_pid
-		echo " Stopped ${name} (through OPNsense os-adguardhome plugin)."
+		echo " Done (through OPNsense os-adguardhome plugin).."
 	else
 		echo "${name} is not running (through OPNsense os-adguardhome plugin)."
 	fi
 }
 
-
-# Create adguardhome logfile directory and file
-if [ -f "${ADGUARDHOME_LOGFILE}" ]; then
-  # If adguardhome log file exists, then do not overwrite; do nothing !
- else
-  # If no adguardhome log file found; assume a new install; create log directory
-  mkdir -p /var/log/${name}/
-  touch "${ADGUARDHOME_LOGFILE}"
-fi
-
-# Check AdGuardhome directory permissions
-if [ -f "${ADGUARDHOME_DIR}" ]; then
-  chmod 0700 ${ADGUARDHOME_DIR}
- else
-  # Do nothing
-fi
-
-run_rc_command "$1"
+run_rc_command $1
