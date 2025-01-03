@@ -24,12 +24,8 @@
 
 . /etc/rc.subr
 
-name=adguardhome
+name="adguardhome"
 ## DO NOT CHANGE THE ABOVE VARIABLE, to be always called name
-
-rcvar=adguardhome_enable
-
-load_rc_config ${name}
 
 : ${adguardhome_enable:=NO}
 : ${ADGUARDHOME_CONFIG:="/usr/local/etc/${name}/adguardhome.yaml"}
@@ -37,30 +33,19 @@ load_rc_config ${name}
 : ${ADGUARDHOME_FLAGS:="-s run"}
 : ${ADGUARDHOME_CONFIG_SAMPLE:="/usr/local/etc/${name}/adguardhome.yaml.sample"}
 
+rcvar=adguardhome_enable
+
 ADGUARDHOME_LOGFILE="/var/log/${name}/${name}.log"
 ADGUARDHOME_PIDFILE="/var/run/${name}.pid"
 ADGUARDHOME_PATH="/usr/local/AdGuardHome/AdGuardHome"
 ADGUARDHOME_DIR="/usr/local/AdGuardHome/"
 
-#if [ -n "${ADGUARDHOME_USER}" ] && [ -z "${ADGUARDHOME_GROUP}" ]; then
-#	# Detect the daemon user's primary group
-#	ADGUARDHOME_GROUP=$(id -gn "${ADGUARDHOME_USER}")
-#fi
-
 command="/usr/sbin/daemon"
 #command_args="-c -f -p ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -c ${ADGUARDHOME_CONFIG} -s run &"
-
 command_args="-f -o ${ADGUARDHOME_LOGFILE} -P ${ADGUARDHOME_PIDFILE} ${ADGUARDHOME_PATH} -s run &"
 
-#/usr/sbin/daemon -f -o /var/log/adguardhome/adguardhome.log -p /var/run/adguardhome.pid /temp/usr/local/AdGuardHome/AdGuardHome -s run -c /usr/local/etc/adguardhome/adguardhome.yaml &
 
-#start_precmd="adguardhome_precmd"
-# Sets up a ADGUARDHOME_PIDFILE the daemon user can access
-#adguardhome_precmd()
-#{
-#	install -o "${ADGUARDHOME_USER:-root}" -g "${ADGUARDHOME_GROUP:-wheel}" -m 0600 /dev/null "${ADGUARDHOME_PIDFILE}"
-#}
-
+load_rc_config ${name}
 
 status_cmd=adguardhome_status
 adguardhome_status()
