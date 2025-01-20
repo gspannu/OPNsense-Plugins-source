@@ -5,6 +5,11 @@ Read more about blocky here: https://github.com/0xERR0R/blocky
 Compiled by Guru Pannu, Copyright (c) 2025
 
 **********************************************
+Version 0.25, Revision 0.1
+* Contains Blocky v0.25 binary
+* Recompiled for OPNsense 25.1 Release
+
+**********************************************
 Version 0.25, Revision 0
 * Contains Blocky v0.25 binary
 * No change in plugin functionality (from 0.24.3)
