@@ -2,8 +2,14 @@ NextDNS DNS plugin for OPNsense
 Github: https://github.com/gspannu/OPN-Plugins
 
 Read more about NextDNS here: https://nextdns.io and https://github.com/nextdns/nextdns
-Compiled by Guru Pannu, Copyright (c) 2024
+Compiled by Guru Pannu, Copyright (c) 2025
 
+**********************************************
+
+#Version 1.44.3, Revision 0.1
+* Build for OPNsense 25.1 stable release
+* Contains NextDNS CLI v1.44.3
+* Please configure /usr/local/etc/nextdns/nextdns.conf as required
 **********************************************
 
 #Version 1.44.3, Revision 0
